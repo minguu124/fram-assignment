@@ -1,3 +1,4 @@
+import { get } from "lodash";
 import { takeEvery, put, call } from "redux-saga/effects";
 import UserService from "src/services/UserService";
 import TaskAction, { ITask } from "src/types/taskAction.type";
@@ -12,7 +13,7 @@ function* fetchUsersSaga(): any {
 
     const res = yield call([UserService, "fetchUsers"]);
 
-    yield put(usersSuccess(res));
+    yield put(usersSuccess(get(res, "data", [])));
   } catch (e) {
     yield put(usersFail(e));
   }
@@ -30,5 +31,6 @@ function* createUserSaga({ payload }: ITask<IUser>) {
 
 export default function* usersSaga() {
   yield takeEvery<TaskAction<void>>(fetchUsers.toString(), fetchUsersSaga);
+
   yield takeEvery<TaskAction<IUser>>(createUser.toString(), createUserSaga);
 }
