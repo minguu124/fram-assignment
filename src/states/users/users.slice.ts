@@ -4,6 +4,9 @@ const initialState = {
   isLoading: false,
   isSuccess: false,
   data: [],
+  page: 1,
+  total: 0,
+  limit: 0,
   error: undefined
 };
 
@@ -19,7 +22,10 @@ const usersSlice = createSlice({
       state.isLoading = false;
       state.isSuccess = true;
       if (action.payload) {
-        state.data = action.payload;
+        state.data = action.payload?.data;
+        state.total = action.payload?.total;
+        state.page = action.payload?.page;
+        state.limit = action.payload?.limit;
       }
     },
     usersFail: (state, action) => {

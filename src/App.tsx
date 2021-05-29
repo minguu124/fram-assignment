@@ -1,8 +1,8 @@
-import React from "react";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/es/integration/react";
 import { store, persistor } from "src/states";
 import AppRoutes from "./routes";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const App = () => {
   return (

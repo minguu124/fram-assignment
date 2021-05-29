@@ -3,3 +3,9 @@ export interface IUser {
   email: string;
   position: string;
 }
+
+export interface ICreateUser extends Partial<IUser> {
+  name: string;
+  email: string;
+  position: string;
+}
