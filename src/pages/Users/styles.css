@@ -1,6 +1,21 @@
 .table-container {
-    margin: 16px;
-    flex: 1;
+    padding: 24px;
+  }
+
+  .table-footer {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    flex-wrap: wrap-reverse;
+  }
+
+  .table-btn {
+    flex: 0.1;
+  }
+
+  .table-title {
+    margin-left: 16px;
+    margin-bottom: 16px;
   }
   
  

@@ -11,6 +11,7 @@ interface ModalProps extends BootstrapModalProps {
   onSecondary?: () => void;
   primaryLabel?: string;
   secondaryLabel?: string;
+  disabled?: boolean;
 }
 
 const Modal = ({
@@ -19,24 +20,30 @@ const Modal = ({
   onSecondary,
   children,
   primaryLabel = "Submit",
-  secondaryLabel = "Cancel"
+  secondaryLabel = "Cancel",
+  disabled,
+  ...rest
 }: ModalProps) => {
   const renderFooter = useCallback(() => {
     if (!onPrimary && !onSecondary) return null;
     return (
       <BootstrapModal.Footer>
-        {!!onSecondary && <Button onClick={onPrimary}>{secondaryLabel}</Button>}{" "}
+        {!!onSecondary && (
+          <Button variant="secondary" onClick={onSecondary}>
+            {secondaryLabel}
+          </Button>
+        )}{" "}
         {!!onPrimary && (
-          <Button variant="primary" onClick={onPrimary}>
+          <Button disabled={disabled} variant="primary" onClick={onPrimary}>
             {primaryLabel}
           </Button>
         )}
       </BootstrapModal.Footer>
     );
-  }, [onPrimary, onSecondary, primaryLabel, secondaryLabel]);
+  }, [disabled, onPrimary, onSecondary, primaryLabel, secondaryLabel]);
 
   return (
-    <BootstrapModal centered>
+    <BootstrapModal centered {...rest}>
       {!!title && (
         <BootstrapModal.Header closeButton>
           <BootstrapModal.Title>{title}</BootstrapModal.Title>

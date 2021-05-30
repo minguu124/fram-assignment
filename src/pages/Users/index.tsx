@@ -1,12 +1,13 @@
-import React, { useCallback, useEffect, useMemo } from "react";
+import React, { Fragment, useCallback, useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Loading from "src/components/Loading";
 import Paginator from "src/components/Paginator";
 import Table, { Column } from "src/components/Table";
-import { fetchUsers } from "src/states/users/actions";
+import { createUser, fetchUsers } from "src/states/users/actions";
 import { getUsersData, getUsersState } from "src/states/users/selectors";
 import { resetUsers } from "src/states/users/users.slice";
-import { IUser } from "src/types/user.type";
+import { ICreateUser, IUser } from "src/types/user.type";
+import CreateUserButton from "./CreateUserButton";
 import "./styles.css";
 
 const columns: Column[] = [
@@ -17,8 +18,15 @@ const columns: Column[] = [
 
 const Users = () => {
   const dispatch = useDispatch();
-  const { isLoading, total, page, limit } = useSelector(getUsersState);
   const users: IUser[] = useSelector(getUsersData);
+  const { isLoading, total, page, limit } = useSelector(getUsersState);
+
+  const onCreate = useCallback(
+    (user: ICreateUser) => {
+      dispatch(createUser(user));
+    },
+    [dispatch]
+  );
 
   useEffect(() => {
     dispatch(fetchUsers({ page: 1 }));
@@ -29,7 +37,7 @@ const Users = () => {
 
   const totalPage = useMemo(() => {
     if (!total || !limit) return 0;
-    return total / limit;
+    return Math.ceil(total / limit);
   }, [limit, total]);
 
   const onChangePage = useCallback(
@@ -40,11 +48,18 @@ const Users = () => {
   );
 
   return (
-    <div className="table-container">
-      <Table data={users} columns={columns} />
-      <Paginator total={totalPage} current={page} onChange={onChangePage} />
+    <Fragment>
+      {" "}
+      <div className="table-container">
+        <h2 className="table-title">Employee</h2>
+        <Table data={users} columns={columns} />
+        <div className="table-footer">
+          <CreateUserButton onCreate={onCreate} />
+          <Paginator total={totalPage} current={page} onChange={onChangePage} />
+        </div>
+      </div>
       <Loading isLoading={isLoading} />
-    </div>
+    </Fragment>
   );
 };
 

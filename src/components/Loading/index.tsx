@@ -7,10 +7,10 @@ interface LoadingProp {
 
 const Loading = ({ isLoading }: LoadingProp) => {
   return (
-    <Modal show={isLoading} backdrop="static" centered>
-      <Modal.Body>
-        <Spinner animation="border" variant="primary" />
-      </Modal.Body>
+    <Modal>
+      <div style={{ height: 200 }}>
+        <p>Some content or children or something.</p>
+      </div>
     </Modal>
   );
 };

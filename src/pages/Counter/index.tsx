@@ -1,5 +1,5 @@
-import { useCallback } from "react";
-import { Button } from "react-bootstrap";
+import React, { useCallback } from "react";
+import { Button, Card } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import {
   counterIncrease,
@@ -21,14 +21,25 @@ const Counter = () => {
   }, [dispatch]);
 
   return (
-    <div className="container">
-      <div>{counter}</div>
-      <Button onClick={onIncrease} variant="primary">
-        Increase
-      </Button>{" "}
-      <Button onClick={onReset} variant="secondary">
-        Reset
-      </Button>{" "}
+    <div className="counter-container">
+      <Card className="text-center counter">
+        <Card.Header>COUNTER</Card.Header>
+        <Card.Body>
+          <Card.Title>{counter}</Card.Title>
+        </Card.Body>
+        <Card.Footer className="counter-container-btn">
+          <Button onClick={onReset} variant="secondary" className="counter-btn">
+            RESET
+          </Button>
+          <Button
+            onClick={onIncrease}
+            variant="primary"
+            className="counter-btn"
+          >
+            INCREASE
+          </Button>
+        </Card.Footer>
+      </Card>
     </div>
   );
 };

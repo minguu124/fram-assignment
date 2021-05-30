@@ -8,4 +8,5 @@ export interface ICreateUser extends Partial<IUser> {
   name: string;
   email: string;
   position: string;
+  createdAt?: Date | string;
 }

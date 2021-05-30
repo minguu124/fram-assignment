@@ -12,11 +12,14 @@ const Paginator = ({ current, total, onChange }: PaginatorProps) => {
     () => [...Array(total).keys()].map((p) => p + 1),
     [total]
   );
-  console.log(pages);
+
   return (
     <Pagination>
-      <Pagination.First />
-      <Pagination.Prev />
+      <Pagination.First onClick={() => onChange(1)} />
+      <Pagination.Prev
+        disabled={current <= 1}
+        onClick={() => onChange(current - 1)}
+      />
       {pages.map((p: number) => (
         <Pagination.Item
           onClick={() => onChange(p)}
@@ -26,8 +29,11 @@ const Paginator = ({ current, total, onChange }: PaginatorProps) => {
           {p}
         </Pagination.Item>
       ))}
-      <Pagination.Next />
-      <Pagination.Last />
+      <Pagination.Next
+        disabled={current >= total}
+        onClick={() => onChange(current + 1)}
+      />
+      <Pagination.Last onClick={() => onChange(total)} />
     </Pagination>
   );
 };
