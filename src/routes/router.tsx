@@ -6,7 +6,7 @@ const Router = () => {
   return (
     <BrowserRouter>
       <Switch>
-        <Route path="/counter">
+        <Route path="/">
           <Counter />
         </Route>
         <Route path="/users">
