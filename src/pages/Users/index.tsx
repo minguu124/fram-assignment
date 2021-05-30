@@ -49,7 +49,6 @@ const Users = () => {
 
   return (
     <Fragment>
-      {" "}
       <div className="table-container">
         <h2 className="table-title">Employee</h2>
         <Table data={users} columns={columns} />
